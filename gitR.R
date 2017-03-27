@@ -61,9 +61,12 @@ repoDataLN<-cbind(repoNamesDF, repoLanguagesDF)
 #repoDataLN
 #class(repoDataLN)
 #head(repoDataLN)
+
+#Adding columns for easier manipulation
 colnames(repoDataLN)<-c("Repos","Language")
 #repoDataLN
-languageCount<-count(repoDataLN$Language)
+#repoDataLN$Repos
+languageCount<-plyr::count(repoDataLN$Language)
 #class(languageCount)
 #repoDataTable<-table(repoDataLN)
 #repoDataTable
