@@ -80,4 +80,4 @@ languageCount<-plyr::count(repoDataLN$Language)
 #table(unlist(repoDataTable))
 
 library(ggplot2)
-ggplot(languageCount,aes(languageCount$x,languageCount$freq,fill=languageCount$x)) + geom_bar(stat="identity")
+ggplot(languageCount,aes(languageCount$x,languageCount$freq,fill=languageCount$x)) + geom_bar(stat="identity") + labs(x = "Language", y = "Count")
