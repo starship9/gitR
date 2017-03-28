@@ -6,16 +6,19 @@ options(stringsAsFactors = FALSE)
 url<-"https://api.github.com"
 path<-"/users/starship9"
 
+#getting the raw data
 raw.result<-GET(url=url, path=path)
 #names(raw.result)
 
 #head(raw.result)
 
+#converting to unicode
 this.raw.content<-rawToChar(raw.result$content)
 #head(this.raw.content)
 
 #nchar(this.raw.content)
 
+#converting from JSON to R objects
 this.json.content<-fromJSON(this.raw.content)
 #head(this.json.content)
 
@@ -25,9 +28,11 @@ repoRawData<-GET(url=repoURL)
 
 #head(repoRawData$content)
 
+#converting raw data to unicode
 repoContent<-rawToChar(repoRawData$content)
 #head(repoContent)
 
+#converting JSON to R objects
 repoJSON<-fromJSON(repoContent)
 #head(repoJSON)
 
@@ -44,6 +49,7 @@ repoNames<-repoJSON$name
 
 library(dplyr)
 
+#converting received data into data frames
 repoLanguagesDF<-tbl_df(repoLanguages)
 repoNamesDF<-tbl_df(repoNames)
 #class(repoLanguagesDF)
@@ -66,6 +72,8 @@ repoDataLN<-cbind(repoNamesDF, repoLanguagesDF)
 colnames(repoDataLN)<-c("Repos","Language")
 #repoDataLN
 #repoDataLN$Repos
+
+#counting language occurrences
 languageCount<-plyr::count(repoDataLN$Language)
 #class(languageCount)
 #repoDataTable<-table(repoDataLN)
@@ -80,4 +88,4 @@ languageCount<-plyr::count(repoDataLN$Language)
 #table(unlist(repoDataTable))
 
 library(ggplot2)
-ggplot(languageCount,aes(languageCount$x,languageCount$freq,fill=languageCount$x)) + geom_bar(stat="identity") + labs(x = "Language", y = "Count")
+ggplot(languageCount,aes(x = languageCount$x,y = languageCount$freq,fill=languageCount$x)) + geom_bar(stat="identity") + labs(title = "Language count",x = "Language", y = "Count")
