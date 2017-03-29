@@ -1,5 +1,6 @@
 library(httr)
 library(jsonlite)
+library(plotly)
 
 options(stringsAsFactors = FALSE)
 
@@ -88,4 +89,5 @@ languageCount<-plyr::count(repoDataLN$Language)
 #table(unlist(repoDataTable))
 
 library(ggplot2)
-ggplot(languageCount,aes(x = languageCount$x,y = languageCount$freq,fill=languageCount$x)) + geom_bar(stat="identity") + labs(title = "Language count",x = "Language", y = "Count")
+g<-ggplot(languageCount,aes(x = languageCount$x,y = languageCount$freq,fill=languageCount$x)) + geom_bar(stat="identity") + labs(title = "Language count",x = "Language", y = "Count")
+ggplotly(g)
